@@ -18,7 +18,7 @@ object QueryRefs {
 
     implicitly[ClassTag[T]]
 
-    def getValue[M](target: M): Option[T] = Try({
+    def getValue[TModel](target: TModel): Option[T] = Try({
       val field = target
         .getClass
         .getDeclaredField(path)
@@ -29,7 +29,7 @@ object QueryRefs {
   }
 
   case class RawQueryRef[T](value: T) extends QueryRef[T] {
-    def getValue[M](target: M) = Some(value)
+    def getValue[TModel](target: TModel) = Some(value)
   }
 
   trait QueryRef[T] {
@@ -39,7 +39,7 @@ object QueryRefs {
     def >=(value: QueryRef[T])(implicit ordering: Ordering[T]) = GreaterThanOrEquals(this, value)
     def <=(value: QueryRef[T])(implicit ordering: Ordering[T]) = LessThanOrEquals(this, value)
 
-    def getValue[M](target: M): Option[T]
+    def getValue[TModel](target: TModel): Option[T]
   }
 
 }

@@ -9,6 +9,12 @@ import scala.reflect.ClassTag
  */
 trait QueryModel {
 
+  /**
+   * A property that may be used within query funs.
+   * @param path The field name to be compared
+   * @tparam A The type of the value that is being compared.
+   * @return
+   */
   def prop[A](path: String)(implicit ct: ClassTag[A]): PathQueryRef[A] = PathQueryRef[A](path)
 
 }

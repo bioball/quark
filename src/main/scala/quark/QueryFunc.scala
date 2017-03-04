@@ -48,7 +48,7 @@ case class GreaterThanOrEquals[TRefValue](
   right: QueryRef[TRefValue]
 )(implicit ordering: Ordering[TRefValue]) extends QueryFunc[TRefValue] {
   import ordering._
-  def compare(lhs: TRefValue, rhs: TRefValue) = lhs < rhs
+  def compare(lhs: TRefValue, rhs: TRefValue) = lhs >= rhs
 }
 
 case class LessThanOrEquals[TRefValue](
@@ -56,5 +56,5 @@ case class LessThanOrEquals[TRefValue](
   right: QueryRef[TRefValue]
 )(implicit ordering: Ordering[TRefValue]) extends QueryFunc[TRefValue] {
   import ordering._
-  def compare(lhs: TRefValue, rhs: TRefValue) = lhs < rhs
+  def compare(lhs: TRefValue, rhs: TRefValue) = lhs <= rhs
 }

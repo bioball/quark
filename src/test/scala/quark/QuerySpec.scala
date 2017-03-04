@@ -45,17 +45,17 @@ class QuerySpec extends FunSpec with MustMatchers {
         Person("Jane", "Goodall", 38)
       )
 
-      it("should be able to run equals queries") {
+      it("should be able to run Equals queries") {
         query.filter((q) => q.firstName ==== q.lastName).run(people) must equal(Seq(Person("Jacob", "Jacob", 25)))
         query.filter(_.firstName ==== "Bob").run(people) must equal(Seq(Person("Bob", "Kane", 19)))
       }
 
-      it("should be able to run greater than queries") {
-        query.filter(_.age > 20).run(people) must equal(Seq(Person("Jane", "Goodall", 38)))
+      it("should be able to run GreaterThan queries") {
+        query.filter(_.age > 30).run(people) must equal(Seq(Person("Jane", "Goodall", 38)))
       }
 
-      it("should be able to run less than queries") {
-        query.filter(_.age < 20).run(people) must equal(Seq(Person("Bob", "Kane", 38)))
+      it("should be able to run LessThan queries") {
+        query.filter(_.age < 20).run(people) must equal(Seq(Person("Bob", "Kane", 19)))
       }
     }
   }
