@@ -4,11 +4,11 @@ package quark
  * Created by danielchao on 2/6/17.
  */
 case class Query[M, T <: QueryModel](
-  queries: Seq[QueryPart[_]] = Nil,
+  queries: Seq[QueryFunc[_]] = Nil,
   limit: Option[Int] = None
 )(implicit queryModel: T) {
 
-  def filter(fn: (T) => QueryPart[_]) = copy[M, T](queries = queries ++ Seq(fn(queryModel)))
+  def filter(fn: (T) => QueryFunc[_]) = copy[M, T](queries = queries ++ Seq(fn(queryModel)))
 
   def limitTo(number: Int) = copy[M, T](limit = Some(number))
 

@@ -1,7 +1,8 @@
 package quark
 
-import org.scalatest.{MustMatchers, FunSpec, Matchers}
-import quark.QueryRefs.{RawQueryRef, PathQueryRef}
+import org.scalatest.{FunSpec, MustMatchers}
+import quark.QueryRefs.{PathQueryRef, RawQueryRef}
+import quark.QueryRefs.implicits._
 
 /**
  * Created by danielchao on 2/6/17.
@@ -20,8 +21,8 @@ class QuerySpec extends FunSpec with MustMatchers {
       }
 
       it("value query refs should return correct values") {
-        // getValue for raw values don't use the class instance for lookups, so it's ignored.
         val ref = new RawQueryRef(3)
+        // getValue for raw values don't use the class instance for lookups, so it's ignored.
         ref.getValue(Unit) mustBe Some(3)
       }
     }
@@ -45,15 +46,17 @@ class QuerySpec extends FunSpec with MustMatchers {
       )
 
       it("should be able to run equals queries") {
-
-        import QueryRefs.implicits._
-
         query.filter((q) => q.firstName ==== q.lastName).run(people) must equal(Seq(Person("Jacob", "Jacob", 25)))
-        query.filter((q) => q.firstName ==== "Bob").run(people) must equal(Seq(Person("Bob", "Kane", 19)))
-
+        query.filter(_.firstName ==== "Bob").run(people) must equal(Seq(Person("Bob", "Kane", 19)))
       }
 
+      it("should be able to run greater than queries") {
+        query.filter(_.age > 20).run(people) must equal(Seq(Person("Jane", "Goodall", 38)))
+      }
 
+      it("should be able to run less than queries") {
+        query.filter(_.age < 20).run(people) must equal(Seq(Person("Bob", "Kane", 38)))
+      }
     }
   }
 }
