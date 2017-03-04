@@ -1,4 +1,4 @@
-package quark
+package com.bioball.quark
 
 import scala.reflect.ClassTag
 import scala.util.Try
@@ -14,9 +14,7 @@ object QueryRefs {
     implicit def toRawQueryRef[T](value: T): QueryRef[T] = QueryRefs.RawQueryRef(value)
   }
 
-  case class PathQueryRef[T: ClassTag](path: String) extends QueryRef[T] {
-
-    implicitly[ClassTag[T]]
+  case class PathQueryRef[T : ClassTag](path: String) extends QueryRef[T] {
 
     def getValue[TModel](target: TModel): Option[T] = Try({
       val field = target
@@ -33,7 +31,7 @@ object QueryRefs {
   }
 
   trait QueryRef[T] {
-    def ====(ref: QueryRef[T]) = Equals(this, ref)
+    def ===(ref: QueryRef[T]) = Equals(this, ref)
     def <(ref: QueryRef[T])(implicit ordering: Ordering[T]) = LessThan(this, ref)
     def >(value: QueryRef[T])(implicit ordering: Ordering[T]) = GreaterThan(this, value)
     def >=(value: QueryRef[T])(implicit ordering: Ordering[T]) = GreaterThanOrEquals(this, value)

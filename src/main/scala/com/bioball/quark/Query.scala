@@ -1,4 +1,4 @@
-package quark
+package com.bioball.quark
 
 /**
  * Created by danielchao on 2/6/17.

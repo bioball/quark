@@ -1,6 +1,6 @@
-package quark
+package com.bioball.quark
 
-import quark.QueryRefs.PathQueryRef
+import QueryRefs.PathQueryRef
 
 import scala.reflect.ClassTag
 
@@ -15,6 +15,6 @@ trait QueryModel {
    * @tparam A The type of the value that is being compared.
    * @return
    */
-  def prop[A](path: String)(implicit ct: ClassTag[A]): PathQueryRef[A] = PathQueryRef[A](path)
+  def prop[A : ClassTag](path: String): PathQueryRef[A] = PathQueryRef[A](path)
 
 }

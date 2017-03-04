@@ -1,8 +1,8 @@
-package quark
+package com.bioball.quark
 
 import org.scalatest.{FunSpec, MustMatchers}
-import quark.QueryRefs.{PathQueryRef, RawQueryRef}
-import quark.QueryRefs.implicits._
+import QueryRefs.{PathQueryRef, RawQueryRef}
+import QueryRefs.implicits._
 
 /**
  * Created by danielchao on 2/6/17.
@@ -46,8 +46,8 @@ class QuerySpec extends FunSpec with MustMatchers {
       )
 
       it("should be able to run Equals queries") {
-        query.filter((q) => q.firstName ==== q.lastName).run(people) must equal(Seq(Person("Jacob", "Jacob", 25)))
-        query.filter(_.firstName ==== "Bob").run(people) must equal(Seq(Person("Bob", "Kane", 19)))
+        query.filter((q) => q.firstName === q.lastName).run(people) must equal(Seq(Person("Jacob", "Jacob", 25)))
+        query.filter(_.firstName === "Bob").run(people) must equal(Seq(Person("Bob", "Kane", 19)))
       }
 
       it("should be able to run GreaterThan queries") {
@@ -56,6 +56,10 @@ class QuerySpec extends FunSpec with MustMatchers {
 
       it("should be able to run LessThan queries") {
         query.filter(_.age < 20).run(people) must equal(Seq(Person("Bob", "Kane", 19)))
+      }
+
+      it("should be able to limit queries") {
+        query.limitTo(1).run(people) must equal(Seq(Person("Bob", "Kane", 19)))
       }
     }
   }

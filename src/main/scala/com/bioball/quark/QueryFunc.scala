@@ -1,6 +1,7 @@
-package quark
+package com.bioball.quark
 
-import quark.QueryRefs.QueryRef
+import com.bioball.quark.QueryRefs.QueryRef
+import QueryRefs.QueryRef
 
 /**
  * Created by danielchao on 2/6/17.
